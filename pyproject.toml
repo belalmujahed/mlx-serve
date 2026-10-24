@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mlx-serve"
+version = "0.1.0"
+description = "Local Claude Messages API-compatible server for Apple MLX models"
+requires-python = ">=3.14"
+dependencies = [
+    "fastapi[standard]>=0.162.0",
+    "huggingface-hub>=2.3.0",
+    "mlx>=0.32.4",
+    "mlx-lm>=0.32.2",
+    "pydantic>=2.14.1",
+    "python-dotenv>=1.2.4",
+    "transformers>=5.20.2",
+    "uvicorn>=0.54.0",
+]
+
+[project.scripts]
+mlx-serve = "mlx_serve.main:main"
+
+[dependency-groups]
+dev = ["pytest>=9.1.1", "pytest-cov>=7.1.0", "ruff>=0.17.2"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = ["--cov=mlx_serve", "--cov-report=term-missing"]
+
+[tool.ruff]
+target-version = "py314"
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]
+
+[tool.coverage.report]
+fail_under = 100
